@@ -1,0 +1,1086 @@
+.pixel-scene {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.scene-bg {
+  position: absolute;
+  inset: 0;
+}
+
+/* ── SHARED BUILDING / STREET HELPERS ─────────────────────── */
+.fog-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.buildings {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 0 4px;
+  height: 100%;
+}
+
+.building {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 4px 2px;
+  gap: 2px;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+
+.window {
+  width: 4px;
+  height: 4px;
+  image-rendering: pixelated;
+}
+
+.ground {
+  height: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.sidewalk {
+  height: 6px;
+  background: #C8D4DA;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── NYC STREET ───────────────────────────────────────────── */
+.nyc-street-bg {
+  background: linear-gradient(180deg, #C8A87A 0%, #D4B888 35%, #C0A070 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.nyc-fog {
+  bottom: 30px;
+  height: 40px;
+  background: linear-gradient(transparent, rgba(220,200,160,0.4));
+}
+.nyc-bld  { background: #8A6A4A; }
+.nyc-win  { background: #F4D878; }
+.nyc-ground { background: #6A5040; }
+
+/* ── NYC BAR (West Village exterior) ─────────────────────── */
+.nyc-bar-bg { background: #06080F; }
+
+.wv-sky {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, #06080F 0%, #0A0E1C 55%, #101424 100%);
+}
+.wv-star {
+  position: absolute; width: 2px; height: 2px;
+  background: #D0CCEA; image-rendering: pixelated;
+}
+.wv-buildings {
+  position: absolute; bottom: 28px; left: 0; right: 0; top: 0;
+  display: flex; align-items: flex-end;
+}
+.wv-bld {
+  position: relative; flex-shrink: 0; overflow: hidden;
+}
+.wv-bld::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(180deg, transparent 0px, transparent 5px, rgba(0,0,0,0.18) 5px, rgba(0,0,0,0.18) 6px),
+    repeating-linear-gradient(90deg, transparent 0px, transparent 11px, rgba(0,0,0,0.12) 11px, rgba(0,0,0,0.12) 12px);
+}
+.wv-bld-gap { width: 3px; background: #060810; flex-shrink: 0; align-self: stretch; }
+
+.wv-upper-windows {
+  position: absolute; top: 8px; left: 8px; right: 8px;
+  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 5px 6px;
+}
+.wv-win { height: 14px; background: #C8902A; box-shadow: 0 0 5px 1px rgba(200,140,30,0.45); }
+.wv-win-dark { background: #3A2810 !important; box-shadow: none !important; }
+
+.wv-cornice {
+  position: absolute; left: 0; right: 0; bottom: 40px;
+  height: 5px; background: #3A2010; border-top: 2px solid #6A4828;
+}
+.wv-ground {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: #2A1A0C;
+}
+.wv-display-win {
+  position: absolute; bottom: 10px; left: 8px; right: 28px; height: 22px;
+  background: #8090A8; border: 2px solid #4A5868;
+  box-shadow: inset 0 0 6px rgba(120,160,200,0.3);
+}
+.wv-display-win::before {
+  content: ''; position: absolute; top: 2px; left: 3px;
+  width: 4px; height: 12px; background: rgba(255,255,255,0.15); transform: skewX(-10deg);
+}
+.wv-door {
+  position: absolute; bottom: 0; right: 6px;
+  width: 16px; height: 28px; background: #3A2A18; border: 2px solid #5A3E28; border-bottom: none;
+}
+.wv-door::after {
+  content: ''; position: absolute; top: 4px; left: 2px; right: 2px;
+  height: 10px; background: #607080; opacity: 0.5;
+}
+.wv-awning {
+  position: absolute; bottom: 29px; left: 0; right: 0; height: 12px; z-index: 3;
+  clip-path: polygon(0 0, 100% 0, 96% 100%, 4% 100%);
+}
+.wv-awning::after {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 6px, transparent 6px, transparent 12px);
+}
+.wv-sign {
+  position: absolute; bottom: 40px; left: 6px; right: 6px; height: 12px;
+  background: #1A1008; border: 1px solid #4A3018;
+  display: flex; align-items: center; justify-content: center; z-index: 2;
+}
+.wv-sign-text { font-size: 5px; letter-spacing: 1px; color: #C8A040; font-family: 'Press Start 2P', monospace; }
+
+.wv-lamp { position: absolute; bottom: 28px; z-index: 8; }
+.wv-lamp-post { position: absolute; bottom: 0; left: 4px; width: 3px; height: 48px; background: #4A4838; }
+.wv-lamp-arm  { position: absolute; bottom: 44px; left: -4px; width: 14px; height: 3px; background: #4A4838; border-radius: 2px 2px 0 0; }
+.wv-lamp-head { position: absolute; bottom: 45px; left: -3px; width: 12px; height: 7px; background: #2E2C22; border-radius: 3px 3px 0 0; }
+.wv-lamp-glow { position: absolute; bottom: 38px; left: -14px; width: 38px; height: 28px; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 10%, rgba(240,185,60,0.55) 0%, transparent 65%); }
+
+.wv-tree { position: absolute; bottom: 28px; z-index: 5; display: flex; flex-direction: column; align-items: center; }
+.wv-tree-top  { width: 20px; height: 26px; background: #162216; border-radius: 50% 50% 30% 30%; }
+.wv-tree-trunk { width: 4px; height: 8px; background: #3A2A18; }
+
+.wv-road     { position: absolute; bottom: 0; left: 0; right: 0; height: 14px; background: #252322; z-index: 3; }
+.wv-sidewalk { position: absolute; bottom: 14px; left: 0; right: 0; height: 14px; background: #B8B8B0; z-index: 4; }
+.wv-curb     { position: absolute; bottom: 14px; left: 0; right: 0; height: 2px; background: #888880; z-index: 5; }
+
+/* ── SHARED BAR INTERNALS (used by SfBalbaoInt) ───────────── */
+.bar-back-wall {
+  position: absolute;
+  inset: 0;
+  bottom: 38px;
+  background: #1E1008;
+}
+.bar-shelf {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background: #2C1810;
+  display: flex;
+  align-items: flex-end;
+  padding: 3px 8px;
+  gap: 4px;
+  border-bottom: 2px solid #4A2C18;
+}
+.bar-shelf-top { top: 28px; }
+.bar-shelf-mid { top: 62px; }
+.bottle {
+  width: 5px;
+  height: 14px;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+  border-radius: 1px 1px 0 0;
+}
+.bar-counter {
+  position: absolute;
+  bottom: 22px;
+  left: 0;
+  right: 0;
+  height: 16px;
+  background: #3A2010;
+  border-top: 2px solid #5A3820;
+  z-index: 2;
+}
+.bar-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 22px;
+  z-index: 1;
+}
+
+/* ── NYC ROOFTOP ──────────────────────────────────────────── */
+.nyc-rooftop-bg {
+  background: linear-gradient(180deg, #050810 0%, #080C1C 50%, #0E1428 100%);
+}
+.star {
+  position: absolute; width: 2px; height: 2px;
+  background: #E8E4D4; image-rendering: pixelated;
+}
+.rooftop-city-svg {
+  position: absolute; bottom: 42px; left: 0; right: 0;
+  width: 100%; height: 140px; z-index: 1;
+}
+.city-glow {
+  position: absolute; bottom: 42px; left: 0; right: 0; height: 30px;
+  background: linear-gradient(transparent, rgba(40,60,100,0.45));
+  z-index: 2; pointer-events: none;
+}
+.string-lights-svg {
+  position: absolute; bottom: 43px; left: 0; right: 0;
+  width: 100%; height: 28px; z-index: 5;
+}
+.rooftop-floor {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 42px;
+  background: #262218; z-index: 3;
+}
+.rooftop-floor::after {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 18px, transparent 18px, transparent 20px);
+}
+.rooftop-rail {
+  position: absolute; bottom: 42px; left: 0; right: 0; height: 5px;
+  background: #3E3A2E; border-top: 1px solid #5A5442; z-index: 6;
+}
+.rooftop-post {
+  position: absolute; bottom: 42px; width: 4px; height: 12px;
+  background: #3E3A2E; z-index: 6;
+}
+
+/* ── ROOFTOP FURNITURE ── */
+.rt-table {
+  position: absolute; z-index: 7;
+  display: flex; flex-direction: column; align-items: center;
+}
+.rt-table-top { width: 30px; height: 5px; background: #5A4430; border: 1px solid #7A6040; border-radius: 1px; }
+.rt-table-leg  { width: 3px; height: 16px; background: #3A2C1C; }
+
+.rt-chair {
+  position: absolute; z-index: 7;
+  display: flex; flex-direction: column; align-items: center;
+}
+.rt-chair-back { width: 10px; height: 7px; background: #302818; border: 1px solid #504030; border-bottom: none; }
+.rt-chair-seat { width: 12px; height: 4px; background: #3E3020; border: 1px solid #5E4838; }
+.rt-chair-legs { display: flex; gap: 6px; }
+.rt-chair-leg  { width: 2px; height: 9px; background: #302818; }
+
+.rt-bottle { position: absolute; z-index: 8; }
+.rt-bottle-cap  { width: 3px; height: 2px; background: #C8A030; margin: 0 auto; border-radius: 1px 1px 0 0; }
+.rt-bottle-neck { width: 3px; height: 5px; margin: 0 auto; border-radius: 1px 1px 0 0; }
+.rt-bottle-body { width: 5px; height: 10px; border-radius: 0 0 1px 1px; }
+
+.rt-glass { position: absolute; z-index: 8; }
+.rt-glass-bowl { width: 7px; height: 5px; background: rgba(160,40,40,0.6); border: 1px solid rgba(255,255,255,0.15); border-radius: 0 0 3px 3px; }
+.rt-glass-stem { width: 1px; height: 4px; background: rgba(255,255,255,0.2); margin: 0 auto; }
+.rt-glass-base { width: 6px; height: 1px; background: rgba(255,255,255,0.2); }
+
+.rt-bucket {
+  position: absolute; z-index: 8;
+  width: 12px; height: 10px;
+  background: #5A6070; border: 1px solid #7A8090;
+  border-radius: 0 0 2px 2px;
+  clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%);
+}
+.rt-bucket::after {
+  content: ''; position: absolute; top: 2px; left: 2px;
+  width: 3px; height: 6px; background: #3A4A1A; border-radius: 1px 1px 0 0;
+}
+
+.rt-seated {
+  position: absolute; z-index: 7;
+  display: flex; flex-direction: column; align-items: center;
+}
+.rt-seated-head { width: 8px; height: 8px; background: #F4C8A0; border-radius: 1px; }
+.rt-seated-body { width: 12px; height: 8px; }
+
+.rt-friend {
+  position: absolute; z-index: 7;
+  display: flex; flex-direction: column; align-items: center;
+}
+.rt-friend-head { width: 8px; height: 8px; background: #F4C8A0; border-radius: 1px; }
+.rt-friend-body { width: 12px; height: 11px; }
+.rt-friend-legs { display: flex; gap: 2px; }
+.rt-friend-leg  { width: 4px; height: 7px; background: #1E2A38; }
+
+/* ── SF STREET ────────────────────────────────────────────── */
+.sf-street-bg {
+  background: linear-gradient(180deg, #9BBDD0 0%, #BDD4E4 45%, #C8DCE8 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.sf-fog-top {
+  top: 0;
+  height: 50px;
+  background: linear-gradient(rgba(195,220,235,0.5), transparent);
+}
+.sf-fog-bottom {
+  bottom: 28px;
+  height: 60px;
+  background: linear-gradient(transparent, rgba(200,220,235,0.75));
+  z-index: 2;
+}
+.sf-bld   { background: #4A7A94; }
+.sf-win   { background: #B8D8EC; }
+.sf-ground { background: #5A8098; }
+
+/* ── SF PARK (Dolores) ────────────────────────────────────── */
+.sf-park-bg {
+  background: #7AAEC4;
+}
+.park-sun {
+  position: absolute;
+  top: 18px;
+  right: 60px;
+  width: 22px;
+  height: 22px;
+  background: #F8E060;
+  border-radius: 50%;
+  box-shadow: 0 0 12px 6px rgba(248,224,60,0.35);
+}
+.dp-skyline-svg {
+  position: absolute;
+  bottom: 38px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 70px;
+}
+.dp-flat-grass {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55px;
+  background: linear-gradient(180deg, #5AAA5A 0%, #4A9A4A 100%);
+  z-index: 1;
+}
+.park-path {
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  width: 60%;
+  height: 16px;
+  background: #C8B880;
+  z-index: 2;
+  clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
+}
+.park-tree {
+  position: absolute;
+  bottom: 48px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tree-top {
+  width: 20px;
+  height: 28px;
+  background: #2A6A2A;
+  border-radius: 50% 50% 30% 30%;
+}
+.tree-trunk {
+  width: 5px;
+  height: 10px;
+  background: #6A4A2A;
+}
+.dp-person {
+  position: absolute;
+  width: 3px;
+  height: 7px;
+  z-index: 4;
+  image-rendering: pixelated;
+}
+.dp-person-head {
+  position: absolute;
+  top: -4px;
+  left: -0.5px;
+  width: 4px;
+  height: 4px;
+  background: #F4C8A0;
+  border-radius: 50%;
+}
+
+/* ── SF PARK (Fort Mason) ─────────────────────────────────── */
+.fm-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.fm-fog-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 30px;
+  background: linear-gradient(rgba(200,220,235,0.22), transparent);
+  z-index: 1;
+  pointer-events: none;
+}
+.fm-grass {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 50px;
+  background: linear-gradient(180deg, #5A9040 0%, #4A7830 100%);
+  z-index: 2;
+}
+.fm-path {
+  position: absolute;
+  bottom: 0;
+  left: 8%;
+  width: 48%;
+  height: 18px;
+  background: #B8A870;
+  z-index: 3;
+  clip-path: polygon(3% 0%, 97% 0%, 100% 100%, 0% 100%);
+}
+.fm-sit {
+  position: absolute;
+  width: 14px;
+  height: 9px;
+  border-radius: 50% 50% 0 0;
+  z-index: 4;
+}
+.fm-person {
+  position: absolute;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.fm-person-head {
+  width: 7px;
+  height: 7px;
+  background: #E8C090;
+  border-radius: 50%;
+}
+.fm-person-body {
+  width: 8px;
+  height: 10px;
+  background: #5A8AB8;
+  margin-top: 1px;
+}
+.fm-dog {
+  position: absolute;
+  width: 10px;
+  height: 6px;
+  background: #8A6840;
+  border-radius: 30% 50% 0 10%;
+  z-index: 4;
+}
+
+/* ── SF HIKE ──────────────────────────────────────────────── */
+.sf-hike-bg {
+  background: #7AAEC4;
+}
+.hike-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── SF APARTMENT ─────────────────────────────────────────── */
+.sf-apt-bg {
+  background: #D0C8B8;
+}
+.apt-window {
+  position: absolute;
+  top: 18px;
+  left: 30px;
+  width: 55px;
+  height: 72px;
+  background: #8ABCD0;
+  border: 4px solid #A0946A;
+  overflow: hidden;
+}
+.apt-win-fog {
+  position: absolute;
+  inset: 0;
+  background: rgba(195,220,235,0.65);
+}
+.apt-win-bld {
+  position: absolute;
+  background: #4A7A94;
+  opacity: 0.7;
+}
+.night-apt-win {
+  top: 18px;
+  left: 30px;
+  width: 55px;
+  height: 72px;
+  background: #0A1828;
+  border: 4px solid #6A6050;
+}
+.night-fog {
+  background: rgba(30,50,80,0.5) !important;
+}
+.apt-shelf {
+  position: absolute;
+  top: 35px;
+  right: 20px;
+  width: 100px;
+  height: 14px;
+  background: #A0884A;
+  display: flex;
+  align-items: flex-end;
+  padding: 2px 4px;
+  gap: 3px;
+  border-bottom: 3px solid #7A6030;
+}
+.apt-book {
+  width: 8px;
+  height: 22px;
+  flex-shrink: 0;
+}
+.apt-box {
+  position: absolute;
+  bottom: 26px;
+  right: 40px;
+  width: 28px;
+  height: 24px;
+  background: #C8A860;
+  border: 2px solid #A08040;
+  z-index: 1;
+}
+.apt-box::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #A08040;
+}
+.apt-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background: #9A7A5A;
+  z-index: 2;
+}
+.apt-floor-dark {
+  background: #1A1208 !important;
+}
+
+/* ── SF APARTMENT NIGHT ───────────────────────────────────── */
+.sf-apt-night-bg {
+  background: #0E0C08;
+}
+.screen-glow {
+  position: absolute;
+  bottom: 28px;
+  left: 80px;
+  width: 80px;
+  height: 50px;
+  background: radial-gradient(ellipse, rgba(80,140,200,0.35) 0%, transparent 70%);
+  z-index: 1;
+}
+.screen-glow::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  width: 60px;
+  height: 30px;
+  background: #1A3A5A;
+  border: 1px solid #2A5A8A;
+}
+
+/* ── SF CAFE ──────────────────────────────────────────────── */
+.sf-cafe-bg {
+  background: #2A1C10;
+}
+.cafe-menu-board {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 55px;
+  background: #1A1008;
+  border: 3px solid #4A3018;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.cafe-menu-line {
+  height: 3px;
+  background: #6A9A6A;
+  border-radius: 1px;
+  opacity: 0.6;
+}
+.cafe-menu-line:nth-child(even) { width: 70%; }
+.cafe-machine {
+  position: absolute;
+  bottom: 38px;
+  right: 50px;
+  width: 28px;
+  height: 30px;
+  background: #4A3820;
+  border: 2px solid #6A5030;
+}
+.cafe-machine::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  background: #2A1808;
+  border-radius: 50%;
+  border: 2px solid #8A6040;
+}
+.cafe-machine::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 8px;
+  width: 6px;
+  height: 6px;
+  background: #5A4028;
+  border-radius: 0 0 50% 50%;
+}
+.cafe-pendant {
+  position: absolute;
+  top: 0;
+  width: 12px;
+  z-index: 2;
+}
+.cafe-pendant::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 5px;
+  width: 2px;
+  height: 22px;
+  background: #3A2A18;
+}
+.cafe-pendant::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 1px;
+  width: 10px;
+  height: 8px;
+  background: #C8A830;
+  border-radius: 50%;
+  box-shadow: 0 0 6px 3px rgba(200,168,48,0.4);
+}
+.cafe-counter {
+  position: absolute;
+  bottom: 22px;
+  left: 0;
+  right: 0;
+  height: 18px;
+  background: #3A2C18;
+  border-top: 3px solid #5A4028;
+  z-index: 2;
+}
+.cafe-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background: #1A1208;
+  z-index: 1;
+}
+
+/* ── SF BALBOA EXTERIOR ───────────────────────────────────── */
+.sf-balboa-ext-bg {
+  background: #080C12;
+}
+.balboa-ext-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #060A10 0%, #0A1018 60%, #10161E 100%);
+}
+.balboa-ext-facade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 28px;
+  background: #E8E4DC;
+  border: 3px solid #C8C4BA;
+  overflow: hidden;
+}
+.balboa-ext-sign {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: 5px 10px;
+  border: 2px solid rgba(34,200,80,0.8);
+  box-shadow: 0 0 10px rgba(34,200,80,0.3), inset 0 0 6px rgba(34,200,80,0.1);
+  background: rgba(10,30,15,0.85);
+  white-space: nowrap;
+  z-index: 3;
+}
+.balboa-ext-sign-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: #22CC50;
+  letter-spacing: 2px;
+  text-shadow: 0 0 6px #22CC50, 0 0 12px #00881A;
+}
+.balboa-ext-sign-sub {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 5px;
+  color: #22CC50;
+  letter-spacing: 1px;
+  margin-top: 3px;
+  opacity: 0.85;
+  text-shadow: 0 0 4px #22CC50;
+}
+.balboa-ext-coca {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  width: 26px;
+  height: 26px;
+  background: #CC2020;
+  border-radius: 50%;
+  border: 3px solid #AA1818;
+  box-shadow: 0 0 4px rgba(200,20,20,0.4);
+  z-index: 3;
+}
+.balboa-ext-coca::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 1px;
+  background: rgba(255,255,255,0.5);
+}
+.balboa-ext-awning {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 18px;
+  background: #1A5A1A;
+  z-index: 4;
+}
+.balboa-ext-bulb {
+  position: absolute;
+  bottom: 8px;
+  width: 4px;
+  height: 4px;
+  background: #F8D060;
+  border-radius: 50%;
+  box-shadow: 0 0 4px 2px rgba(248,208,80,0.5);
+}
+.balboa-ext-windows {
+  position: absolute;
+  top: 58px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+}
+.balboa-ext-window {
+  flex: 1;
+  height: 20px;
+  background: #C89040;
+  box-shadow: 0 0 8px 2px rgba(200,140,40,0.35);
+}
+.balboa-ext-patio {
+  position: absolute;
+  bottom: 28px;
+  left: 0;
+  right: 0;
+  height: 16px;
+  z-index: 5;
+}
+.balboa-ext-barrier {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: #888880;
+  opacity: 0.6;
+}
+.balboa-ext-umbrella {
+  position: absolute;
+  bottom: 4px;
+  z-index: 6;
+}
+.balboa-ext-umbrella::before {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: -14px;
+  width: 30px;
+  height: 10px;
+  background: #3A6A3A;
+  border-radius: 50% 50% 0 0;
+}
+.balboa-ext-umbrella::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  height: 10px;
+  background: #5A5A50;
+}
+.balboa-ext-patron-wrap {
+  position: absolute;
+  bottom: 4px;
+  z-index: 7;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 2px;
+}
+.balboa-ext-person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.balboa-ext-patron-head {
+  width: 5px;
+  height: 5px;
+  background: #F4C8A0;
+  border-radius: 1px;
+}
+.balboa-ext-patron-body {
+  width: 8px;
+  height: 9px;
+  background: #2A3A4A;
+}
+/* Beer pint glass */
+.balboa-drink {
+  flex-shrink: 0;
+}
+.balboa-drink-beer {
+  width: 4px;
+  height: 8px;
+  background: linear-gradient(to bottom, #E8E4C0 0px, #E8E4C0 2px, #C87818 2px, #A05C10 100%);
+  border-radius: 0 0 1px 1px;
+}
+/* Espresso martini — dark liquid in triangular glass bowl */
+.balboa-drink-martini {
+  width: 7px;
+  height: 6px;
+  background: #160A04;
+  clip-path: polygon(0% 0%, 100% 0%, 65% 100%, 35% 100%);
+  position: relative;
+}
+.balboa-drink-martini::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  right: 1px;
+  height: 2px;
+  background: #4A2010;
+  opacity: 0.6;
+}
+
+/* ── BALBOA FOREGROUND PATRONS (large, close to camera) ────── */
+.bf-fg-row {
+  position: absolute;
+  bottom: -4px;
+  z-index: 12;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 3px;
+}
+.bf-fg-patron {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bf-fg-head {
+  width: 14px;
+  height: 13px;
+  border-radius: 2px;
+}
+.bf-fg-body {
+  width: 18px;
+  height: 22px;
+}
+/* Beer pint — large */
+.bf-fg-drink {
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+.bf-fg-drink-beer {
+  width: 6px;
+  height: 14px;
+  background: linear-gradient(to bottom, #EEEAC8 0px, #EEEAC8 3px, #D08820 3px, #A86010 100%);
+  border-radius: 0 0 2px 2px;
+  outline: 1px solid rgba(0,0,0,0.15);
+}
+/* Espresso martini — large triangular glass */
+.bf-fg-drink-martini {
+  width: 13px;
+  height: 9px;
+  background: #120806;
+  clip-path: polygon(0% 0%, 100% 0%, 62% 100%, 38% 100%);
+  position: relative;
+  outline: 1px solid rgba(255,255,255,0.08);
+}
+.bf-fg-drink-martini::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  right: 2px;
+  height: 2px;
+  background: #C8B870;
+  opacity: 0.5;
+}
+
+/* ── SF OFFICE ───────────────────────────────────────────────── */
+.sf-office-bg {
+  background: #D8D8D4;
+}
+
+/* ── SF BALBOA INTERIOR ───────────────────────────────────── */
+.sf-balboa-int-bg {
+  background: #1A0E08;
+}
+.balboa-int-wall {
+  background: #241408 !important;
+  bottom: 38px !important;
+}
+.balboa-int-pendant {
+  position: absolute;
+  top: 0;
+  width: 14px;
+  z-index: 2;
+}
+.balboa-int-pendant::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 6px;
+  width: 2px;
+  height: 22px;
+  background: #3A2A18;
+}
+.balboa-int-pendant::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 2px;
+  width: 10px;
+  height: 8px;
+  background: #E0A840;
+  border-radius: 50%;
+  box-shadow: 0 0 8px 4px rgba(220,168,48,0.55);
+}
+.balboa-int-patron { background: #4A3A2A !important; }
+.balboa-int-counter {
+  background: #4A2C10 !important;
+  border-top-color: #6A4020 !important;
+}
+.balboa-int-floor { background: #140C06 !important; }
+
+/* ── SHARED BARSTOOL ──────────────────────────────────────── */
+.patron-wrap {
+  position: absolute;
+  bottom: 38px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.patron-head {
+  width: 6px;
+  height: 6px;
+  background: #F4C8A0;
+  border-radius: 1px;
+}
+.patron-body {
+  width: 10px;
+  height: 12px;
+  background: #3A5A7A;
+}
+.stool-seat {
+  width: 12px;
+  height: 3px;
+  background: #5A3820;
+  margin-top: 1px;
+}
+.stool-leg {
+  width: 3px;
+  height: 10px;
+  background: #4A3018;
+  margin: 0 auto;
+}
+
+/* ── CHARACTER ────────────────────────────────────────────── */
+.char-position {
+  position: absolute;
+  bottom: 22px;
+  left: 64px;
+  z-index: 10;
+}
+
+.pixel-char {
+  position: relative;
+  width: 20px;
+  height: 32px;
+  image-rendering: pixelated;
+}
+
+.px {
+  position: absolute;
+  image-rendering: pixelated;
+}
+
+/* Shared */
+.head { top: 4px; left: 4px; width: 12px; height: 9px; background: #F4C8A0; }
+
+/* Mia – dress + longer hair */
+.hair-alex       { top: 0;   left: 0;   width: 20px; height: 7px; background: #3D1A24; }
+.hair-side-l     { top: 6px; left: 0;   width: 3px;  height: 10px; background: #3D1A24; }
+.hair-side-r     { top: 6px; left: 17px; width: 3px; height: 10px; background: #3D1A24; }
+.body-alex       { top: 13px; left: 2px; width: 16px; height: 16px; background: #D4849A; border-radius: 0 0 3px 3px; }
+.arm-l-alex      { top: 14px; left: 0;   width: 3px; height: 8px; background: #D4849A; }
+.arm-r-alex      { top: 14px; left: 17px; width: 3px; height: 8px; background: #D4849A; }
+
+/* Jake */
+.hair-jake  { top: 0;   left: 4px; width: 12px; height: 5px; background: #1A2A3A; }
+.body-jake  { top: 13px; left: 1px; width: 18px; height: 10px; background: #4A7A94; }
+.arm-l-jake { top: 13px; left: 0;   width: 3px;  height: 10px; background: #4A7A94; }
+.arm-r-jake { top: 13px; left: 17px; width: 3px; height: 10px; background: #4A7A94; }
+
+/* Shared legs (Jake only – Mia's dress covers this area) */
+.leg-l { top: 23px; left: 3px;  width: 6px; height: 9px; background: #2A3A4A; }
+.leg-r { top: 23px; left: 11px; width: 6px; height: 9px; background: #2A3A4A; }
+
+/* Walking animation */
+@keyframes walk-leg-l {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-3px); }
+}
+@keyframes walk-leg-r {
+  0%, 100% { transform: translateY(-3px); }
+  50%       { transform: translateY(0); }
+}
+@keyframes walk-arm-l {
+  0%, 100% { transform: rotate(-10deg); }
+  50%       { transform: rotate(10deg); }
+}
+@keyframes walk-arm-r {
+  0%, 100% { transform: rotate(10deg); }
+  50%       { transform: rotate(-10deg); }
+}
+
+.walking .leg-l         { animation: walk-leg-l 0.4s steps(2) infinite; }
+.walking .leg-r         { animation: walk-leg-r 0.4s steps(2) infinite; }
+.walking .arm-l-alex,
+.walking .arm-l-jake    { animation: walk-arm-l 0.4s steps(2) infinite; transform-origin: top center; }
+.walking .arm-r-alex,
+.walking .arm-r-jake    { animation: walk-arm-r 0.4s steps(2) infinite; transform-origin: top center; }

@@ -1,0 +1,40 @@
+.dialogue-box {
+  background: #EAF3F8;
+  border-top: 3px solid var(--bay-blue);
+  padding: 14px 14px 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.dialogue-nyc {
+  background: #FDF6F0;
+  border-top-color: var(--warm-coral);
+}
+
+.dialogue-location {
+  font-size: 7px;
+  color: var(--bay-blue);
+  letter-spacing: 1px;
+  line-height: 1.6;
+}
+
+.dialogue-nyc .dialogue-location {
+  color: var(--warm-coral);
+}
+
+.dialogue-text {
+  font-size: 9px;
+  color: var(--deep-navy);
+  line-height: 2.4;
+  flex-shrink: 0;
+}
+
+.dialogue-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}

@@ -1,0 +1,110 @@
+.char-select-scene {
+  flex: 1;
+  background: linear-gradient(180deg, #7AAEC4 0%, #A8CCDE 40%, #C8E0EE 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 16px 20px;
+  font-family: 'Press Start 2P', monospace;
+  overflow: hidden;
+}
+
+.cs-title-block {
+  text-align: center;
+}
+
+.cs-title {
+  font-size: 20px;
+  color: var(--deep-navy);
+  line-height: 1.5;
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.12);
+}
+
+.cs-subtitle {
+  font-size: 7px;
+  color: var(--steel);
+  margin-top: 8px;
+  letter-spacing: 1px;
+}
+
+.cs-prompt {
+  font-size: 8px;
+  color: var(--deep-navy);
+  letter-spacing: 2px;
+  animation: blink 1.2s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cs-chars {
+  display: flex;
+  gap: 20px;
+}
+
+.cs-char-btn {
+  background: rgba(240, 248, 252, 0.85);
+  border: 3px solid var(--bay-blue);
+  padding: 14px 12px;
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: 'Press Start 2P', monospace;
+  transition: background 0.1s, transform 0.1s;
+}
+
+.cs-char-btn:hover {
+  background: rgba(208, 232, 244, 0.95);
+  transform: translateY(-3px);
+  border-color: var(--deep-navy);
+}
+
+/* sprite */
+.char-preview-sprite {
+  position: relative;
+  width: 40px;
+  height: 60px;
+  image-rendering: pixelated;
+}
+
+.cpx {
+  position: absolute;
+  image-rendering: pixelated;
+}
+
+.head-c   { top: 8px; left: 8px; width: 24px; height: 18px; background: #F4C8A0; }
+.hair-a   { top: 0; left: 4px; width: 32px; height: 11px; background: #3D1A24; }
+.body-a   { top: 26px; left: 4px; width: 32px; height: 18px; background: #D4849A; }
+.arm-la   { top: 28px; left: 0; width: 5px; height: 14px; background: #D4849A; }
+.arm-ra   { top: 28px; left: 35px; width: 5px; height: 14px; background: #D4849A; }
+.hair-j   { top: 0; left: 8px; width: 24px; height: 9px; background: #1A2A3A; }
+.body-j   { top: 26px; left: 2px; width: 36px; height: 18px; background: #4A7A94; }
+.arm-lj   { top: 26px; left: 0; width: 5px; height: 16px; background: #4A7A94; }
+.arm-rj   { top: 26px; left: 35px; width: 5px; height: 16px; background: #4A7A94; }
+.leg-lc   { top: 44px; left: 7px; width: 10px; height: 16px; background: #2A3A4A; }
+.leg-rc   { top: 44px; left: 23px; width: 10px; height: 16px; background: #2A3A4A; }
+
+.cs-char-name {
+  font-size: 12px;
+  color: var(--deep-navy);
+}
+
+.cs-char-bio {
+  font-size: 7px;
+  color: var(--steel);
+  line-height: 2;
+  text-align: center;
+}
+
+.cs-footer {
+  font-size: 9px;
+  color: var(--steel);
+  letter-spacing: 2px;
+  opacity: 0.8;
+}

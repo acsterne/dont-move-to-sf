@@ -1,0 +1,42 @@
+.canvas-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.game-canvas {
+  width: 480px;
+  height: 640px;
+  background: var(--fog-white);
+  border: 3px solid var(--bay-blue);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 4px #0A1A24, 0 0 40px rgba(91, 143, 168, 0.3);
+  position: relative;
+}
+
+.top-bar {
+  background: var(--deep-navy);
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 8px;
+  color: var(--sky-light);
+  letter-spacing: 1px;
+  flex-shrink: 0;
+  border-bottom: 2px solid var(--bay-blue);
+  gap: 8px;
+}
+
+.canvas-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+

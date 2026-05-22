@@ -1,0 +1,234 @@
+.flight-scene {
+  flex: 1;
+  background: linear-gradient(180deg, #0A1A24 0%, #1A3A4A 60%, #2A5A7A 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.flight-map {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.us-map-svg {
+  width: 100%;
+  max-height: 200px;
+}
+
+/* ── CITY VIEW (GGB phase) ── */
+.city-view {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.cv-sky {
+  flex: 1;
+  background: linear-gradient(180deg, #7AAEC4 0%, #A8CCDE 60%, #C0D8EA 100%);
+}
+
+.cv-fog-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50px;
+  background: linear-gradient(rgba(195,220,235,0.6), transparent);
+}
+
+.cv-water {
+  height: 55px;
+  background: linear-gradient(180deg, #4A8AAA 0%, #3A7090 100%);
+  flex-shrink: 0;
+}
+
+.cv-skyline {
+  position: absolute;
+  bottom: 55px;
+  left: 0; right: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 0 80px 0 40px;
+  opacity: 0.55;
+}
+
+.cv-bld {
+  background: #2A4A5E;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+
+.ggb-svg {
+  position: absolute;
+  bottom: 30px;
+  left: 0; right: 0;
+  width: 100%;
+  height: 120px;
+  animation: bridge-fade 0.8s ease-out;
+}
+
+@keyframes bridge-fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cv-fog-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40px;
+  background: linear-gradient(transparent, rgba(180,210,225,0.7));
+}
+
+/* ── ARRIVAL ── */
+.arrival-view {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.arrival-scene-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.av-fog {
+  position: absolute;
+  left: -60%; right: -60%;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+}
+.av-fog-1 { top: 5%;  height: 50px; background: rgba(210,220,228,0.38); animation: fog-a 11s ease-in-out infinite; }
+.av-fog-2 { top: 22%; height: 40px; background: rgba(195,210,220,0.30); animation: fog-b 14s ease-in-out infinite; }
+.av-fog-3 { top: 40%; height: 55px; background: rgba(205,218,226,0.34); animation: fog-a 9s  ease-in-out infinite reverse; }
+.av-fog-4 { top: 58%; height: 45px; background: rgba(200,215,224,0.28); animation: fog-b 12s ease-in-out infinite reverse; }
+.av-fog-5 { top: 72%; height: 60px; background: rgba(215,225,232,0.32); animation: fog-a 16s ease-in-out infinite; }
+
+@keyframes fog-a { 0%,100% { transform: translateX(0%); }   50% { transform: translateX(8%); } }
+@keyframes fog-b { 0%,100% { transform: translateX(5%); }   50% { transform: translateX(-8%); } }
+
+.av-wind {
+  position: absolute; inset: 0;
+  overflow: hidden; pointer-events: none; z-index: 3;
+}
+.av-wind-line {
+  position: absolute; height: 1px;
+  background: rgba(180,200,215,0.3);
+  animation: av-wind-sweep 2.6s linear infinite;
+}
+@keyframes av-wind-sweep {
+  from { transform: rotate(-6deg) translateX(160%); }
+  to   { transform: rotate(-6deg) translateX(-160%); }
+}
+
+.av-therm {
+  position: absolute; right: 18px; bottom: 20px; z-index: 10;
+  display: flex; flex-direction: column; align-items: center;
+}
+.av-therm-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px; color: #3A6A8A; letter-spacing: 1px; margin-bottom: 3px;
+}
+.av-therm-tube {
+  width: 8px; height: 60px;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.45);
+  border-radius: 3px 3px 0 0; border-bottom: none;
+  position: relative; overflow: hidden;
+}
+.av-therm-tube::before {
+  content: ''; position: absolute; right: -5px; top: 0; bottom: 0; width: 4px;
+  background: repeating-linear-gradient(180deg, rgba(255,255,255,0.45) 0px, rgba(255,255,255,0.45) 1px, transparent 1px, transparent 8px);
+}
+.av-mercury {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 33px; /* ~55% of 60px */
+  background: linear-gradient(180deg, #E84040 0%, #C82020 100%);
+}
+.av-therm-bulb {
+  width: 14px; height: 14px;
+  background: #C82020; border: 2px solid rgba(255,255,255,0.45);
+  border-radius: 50%; margin-top: -1px;
+  box-shadow: 0 0 5px rgba(200,20,20,0.4);
+}
+.av-therm-reading {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px; color: #C82020; margin-top: 4px; letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(200,20,20,0.3);
+}
+
+/* ── TEXT BOX ── */
+.flight-text-box {
+  background: #0E2535;
+  border-top: 3px solid var(--bay-blue);
+  padding: 16px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.flight-location {
+  font-size: 8px;
+  color: var(--bay-blue);
+  letter-spacing: 1px;
+}
+
+.flight-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.flight-line {
+  font-size: 9px;
+  color: #C8E0EE;
+  line-height: 2.2;
+}
+
+.flight-spacer { height: 8px; }
+
+.flight-btn {
+  background: transparent;
+  border: 2px solid var(--bay-blue);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--bay-blue);
+  padding: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s, color 0.1s;
+}
+
+.flight-btn:hover:not(:disabled) {
+  background: var(--bay-blue);
+  color: var(--fog-white);
+}
+
+.flight-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.flight-btn-land {
+  border-color: #5BB8E0;
+  color: #5BB8E0;
+}
+
+.flight-btn-land:hover {
+  background: #5BB8E0 !important;
+  color: var(--deep-navy) !important;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}

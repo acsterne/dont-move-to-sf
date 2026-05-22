@@ -1,0 +1,28 @@
+.timeline-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.tl-label {
+  font-size: 7px;
+  color: #C8E0EE;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+
+.tl-track {
+  flex: 1;
+  height: 8px;
+  background: var(--steel);
+  border: 2px solid var(--bay-blue);
+  image-rendering: pixelated;
+}
+
+.tl-fill {
+  height: 100%;
+  background: var(--warm-coral);
+  transition: width 0.5s ease;
+  min-width: 0;
+}

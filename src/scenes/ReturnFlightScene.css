@@ -1,0 +1,95 @@
+.rf-scene {
+  flex: 1;
+  background: linear-gradient(180deg, #0A1A24 0%, #1A3A4A 60%, #2A5A7A 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.rf-map {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.rf-us-svg {
+  width: 100%;
+  max-height: 200px;
+}
+
+.nyc-sunrise-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.rf-text-box {
+  background: #1A0E06;
+  border-top: 3px solid #E07A5F;
+  padding: 16px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rf-location {
+  font-size: 8px;
+  color: #E07A5F;
+  letter-spacing: 1px;
+}
+
+.rf-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rf-line {
+  font-size: 9px;
+  color: #F0DCC8;
+  line-height: 2.2;
+}
+
+.rf-spacer { height: 8px; }
+
+.rf-btn {
+  background: transparent;
+  border: 2px solid #E07A5F;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: #E07A5F;
+  padding: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s, color 0.1s;
+}
+
+.rf-btn:hover:not(:disabled) {
+  background: #E07A5F;
+  color: #F0F4F8;
+}
+
+.rf-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+  animation: rf-pulse 1.2s ease-in-out infinite;
+}
+
+.rf-btn-restart {
+  border-color: #F5C47A;
+  color: #F5C47A;
+}
+
+.rf-btn-restart:hover {
+  background: #F5C47A !important;
+  color: #1A1206 !important;
+}
+
+@keyframes rf-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}

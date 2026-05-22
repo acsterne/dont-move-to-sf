@@ -1,0 +1,32 @@
+.regret-meter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.meter-label {
+  font-size: 5px;
+  color: var(--sky-mid);
+  letter-spacing: 1px;
+}
+
+.pips {
+  display: flex;
+  gap: 3px;
+}
+
+.pip {
+  width: 8px;
+  height: 8px;
+  image-rendering: pixelated;
+  transition: background 0.3s;
+}
+
+.pip-on {
+  background: #E07A5F;
+}
+
+.pip-off {
+  background: var(--steel);
+  border: 1px solid var(--bay-blue);
+}

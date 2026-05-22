@@ -1,0 +1,56 @@
+.offer-card {
+  background: #F8F2EC;
+  border: 2px solid #D4A878;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.offer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 5px;
+  gap: 8px;
+}
+
+.offer-key {
+  color: #A07850;
+  letter-spacing: 1px;
+}
+
+.offer-val {
+  color: var(--deep-navy);
+  text-align: right;
+}
+
+.friend-messages-decision {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.fdm {
+  padding: 8px 10px;
+  border: 2px solid;
+}
+
+.fdm.east { background: #FFF0EC; border-color: #D4A898; }
+.fdm.west { background: #EDF8F0; border-color: #8ABCA0; }
+
+.fdm-label {
+  font-size: 5px;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+.fdm.east .fdm-label { color: #C07060; }
+.fdm.west .fdm-label { color: #4A9A6A; }
+
+.fdm-text {
+  font-size: 6px;
+  color: var(--deep-navy);
+  line-height: 2;
+}

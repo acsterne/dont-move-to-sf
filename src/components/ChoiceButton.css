@@ -1,0 +1,52 @@
+.choice-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: var(--mist);
+  border: 2px solid var(--choice-border);
+  padding: 10px 12px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--deep-navy);
+  line-height: 2;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: background 0.1s, border-color 0.1s;
+  image-rendering: pixelated;
+}
+
+.choice-btn:hover {
+  background: var(--choice-hover);
+  border-color: var(--bay-blue);
+}
+
+.choice-btn:active {
+  background: var(--bay-blue);
+  color: var(--fog-white);
+}
+
+.choice-arrow {
+  color: var(--bay-blue);
+  flex-shrink: 0;
+  font-size: 7px;
+}
+
+.choice-btn:hover .choice-arrow,
+.choice-btn:active .choice-arrow {
+  color: inherit;
+}
+
+.choice-nyc {
+  border-color: #D4A898;
+  background: #FDF0EC;
+}
+
+.choice-nyc:hover {
+  background: #FADFDA;
+  border-color: var(--warm-coral);
+}
+
+.choice-nyc .choice-arrow {
+  color: var(--warm-coral);
+}

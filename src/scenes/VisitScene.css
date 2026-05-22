@@ -1,0 +1,92 @@
+.friend-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.friend-msg {
+  padding: 8px 10px;
+  border: 2px solid;
+}
+
+.friend-msg.east {
+  background: #FFF0EC;
+  border-color: #D4A898;
+}
+
+.friend-msg.west {
+  background: #EDF8F0;
+  border-color: #8ABCA0;
+}
+
+.friend-label {
+  font-size: 7px;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.east .friend-label { color: #C07060; }
+.west .friend-label { color: #4A9A6A; }
+
+.friend-text {
+  font-size: 8px;
+  color: var(--deep-navy);
+  line-height: 2;
+}
+
+/* ── FLASHBACK SCREEN ── */
+.flashback-screen {
+  flex: 1;
+  background: linear-gradient(180deg, #0A1A24 0%, #1A3040 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  font-family: 'Press Start 2P', monospace;
+}
+
+.flashback-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.flashback-rule {
+  width: 200px;
+  height: 2px;
+  background: var(--bay-blue);
+  opacity: 0.5;
+}
+
+.flashback-label {
+  font-size: 9px;
+  color: var(--bay-blue);
+  letter-spacing: 2px;
+}
+
+.flashback-text {
+  font-size: 9px;
+  color: var(--sky-light);
+  line-height: 2.4;
+  max-width: 340px;
+}
+
+.flashback-btn {
+  background: transparent;
+  border: 2px solid var(--bay-blue);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--bay-blue);
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.1s, color 0.1s;
+}
+
+.flashback-btn:hover {
+  background: var(--bay-blue);
+  color: var(--fog-white);
+}
